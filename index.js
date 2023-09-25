@@ -5,6 +5,7 @@
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
+const requestHeaderParserRouter = require('./requestHeaderRoutes');
 const app = express();
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
@@ -25,6 +26,8 @@ app.get('/', function (req, res) {
 app.get('/api/hello', function (req, res) {
   res.json({ greeting: 'hello API' });
 });
+
+app.use('/api', requestHeaderParserRouter);
 
 // listen for requests :)
 const listener = app.listen(3000, function () {
